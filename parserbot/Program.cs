@@ -1,17 +1,19 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
-
+using OpenQA.Selenium.Firefox;
 
 IWebDriver driver;
 
-for(int i = 1; i <= 10; i++)
+for(int i = 1; i <= 1; i++)
 {
     try
     {
         // Дайвер путь
         string path = "C:\\Users\\shymkentbay.b\\source\\repos\\parserbot\\parserbot\\drivers";
+
         // Создать экземплярь драйвера
-        driver = new EdgeDriver(path);
+        driver = new  ChromeDriver(path);
         // Запуск браузера
         driver.Navigate().GoToUrl("https://kaspi.kz/shop/p/apple-iphone-13-128gb-chernyi-102298404/?c=750000000");
 
