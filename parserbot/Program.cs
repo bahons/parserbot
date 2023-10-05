@@ -37,7 +37,7 @@ namespace parserbot
 
         public static string WebDriverRun(string url)
         {
-            String result = "";
+            String result = "Информация по товару:\n \\U+2705 ";
             IWebDriver driver;
 
             // Дайвер путь
@@ -54,8 +54,9 @@ namespace parserbot
             try
             {
                 var head = driver.FindElement(By.ClassName("item__heading"));
-                result = head.Text;
-                //var rate = driver.FindElement(By.ClassName("item__rating-link"));
+                result = result + "**" + head.Text + "**\n\n";
+                var rate = driver.FindElement(By.ClassName("item__rating-link"));
+                result = result + "Рейтинг: " + rate.Text + "\n";
                 //var price = driver.FindElement(By.ClassName("item__price-once"));
                 //if (price == null)
                 //{
