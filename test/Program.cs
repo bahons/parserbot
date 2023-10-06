@@ -26,12 +26,12 @@ class Program
         List<string> review_datas = new List<string>();
 
         // Дайвер путь
-        string path = "C:\\distr\\drivers";
+        string path = "C:\\Users\\shymkentbay.b\\source\\repos\\parserbot\\parserbot\\drivers";
 
-        var options = new EdgeOptions();
+        var options = new ChromeOptions();
         options.AddArgument("--start-maximized");
         // Создать экземплярь драйвера
-        driver = new EdgeDriver(path, options);
+        driver = new ChromeDriver(path, options);
         // Запуск браузера
         //driver.Navigate().GoToUrl("https://kaspi.kz/shop/p/apple-iphone-13-128gb-chernyi-102298404/?c=750000000");
         driver.Navigate().GoToUrl(url);
@@ -46,17 +46,14 @@ class Program
             var price = driver.FindElement(By.ClassName("item__price-once"));
             result = result + "Цена: " + price.Text + "\n";
 
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(500));
-            var otziv = driver.FindElements(By.ClassName("tabs-content__tab"))[1].Click;
-            wait.Until(d => otziv);
+            driver.FindElement(By.XPath($"//li[@linktext='{rate.Text}'")).Click();
             var click = driver.FindElement(By.XPath("//a[@class='reviews__view-change reviews__more button _secondary']"));
             click.Click();
-            wait.Until(d => click);
             var rev_datas = driver.FindElements(By.ClassName("reviews__date"));
             
             foreach(var v in rev_datas)
             {
-                review_datas.Add(v.Text);
+                //review_datas.Add(v.Text);
                 Console.Write(v.Text + "_");
             }
             driver.Close();
