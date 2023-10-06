@@ -37,7 +37,7 @@ namespace parserbot
 
         public static string WebDriverRun(string url)
         {
-            String result = "Информация по товару:\n \\U+2705 ";
+            String result = "Информация по товару:\n";
             IWebDriver driver;
 
             // Дайвер путь
@@ -54,10 +54,11 @@ namespace parserbot
             try
             {
                 var head = driver.FindElement(By.ClassName("item__heading"));
-                result = result + "**" + head.Text + "**\n\n";
+                result = result + head.Text + "\n\n";
                 var rate = driver.FindElement(By.ClassName("item__rating-link"));
-                result = result + "Рейтинг: " + rate.Text + "\n";
-                //var price = driver.FindElement(By.ClassName("item__price-once"));
+                result = result + "Отзыви: " + rate.Text.Substring(1, rate.Text.IndexOf(" ")) + "\n";
+                var price = driver.FindElement(By.ClassName("item__price-once"));
+                result = result + "Цена: " + price.Text + "\n";
                 //if (price == null)
                 //{
                 //    Console.WriteLine("price = null");
@@ -66,14 +67,14 @@ namespace parserbot
                 //    Console.WriteLine("Цена: " + price.Text);
                 //Console.WriteLine("Рейтинг: " + driver.FindElement(By.ClassName("item__rating-link")).Text);
                 //Console.WriteLine("Цена: " + driver.FindElement(By.ClassName("item__price-once")).Text);
+                driver.Close();
             }
             catch (Exception ex)
             {
                 Console.WriteLine("\n*************************** Error ****************************************");
-            }
-            finally
-            {
+                Console.WriteLine(ex.Message);
                 driver.Close();
+                return "Системная ошибка, попробуйте еще раз";
             }
             return result;
         }
